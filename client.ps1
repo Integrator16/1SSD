@@ -1,4 +1,4 @@
-$logFilePath = "c:\users\director\code\ssdv.05\DiskData888.log"
+$logFilePath = ".\client.log"
 $apiUrl = "http://i.1ssd.ru/temperatures"
 
 # Функция для получения температуры дисков и параметров SMART
@@ -88,9 +88,9 @@ function Send-DataToServer {
 
     try {
         $response = Invoke-RestMethod -Uri $apiUrl -Method Post -Body $jsonPayload -ContentType "application/json"
-        Write-Output "Server response: $($response.message)"
+        Write-Output "Server response: $($response.message)" | Out-File $logFilePath -Append
     } catch {
-        Write-Output "Ошибка при вызове API. Статус код: $($_.Exception.Response.StatusCode.Value__) Сообщение: $($_.Exception.Message)"
+        Write-Output "Ошибка при вызове API. Статус код: $($_.Exception.Response.StatusCode.Value__) Сообщение: $($_.Exception.Message)" | Out-File $logFilePath -Append
     }
 }
 

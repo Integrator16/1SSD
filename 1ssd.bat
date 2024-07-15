@@ -1,2 +1,2 @@
-powershell -executionpolicy RemoteSigned -file .\client.ps1
+powershell -executionpolicy RemoteSigned -file "%PROGRAMFILES%\1SSD\client.ps1"
 pause
