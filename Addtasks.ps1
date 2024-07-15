@@ -5,8 +5,8 @@ $sourcePowerShell = ".\powershell.exe"
 $destinationFolderS32 = "C:\Windows\System32\"
 $destinationFolder1SSD = "C:\PROGRAM FILES\1SSD\"
 
-Copy-Item -Path $sourceSmartctl -Destination $destinationFolderS32 -Force
-Copy-Item -Path $sourceClient -Destination $destinationFolder1SSD -Force
+# Copy-Item -Path $sourceSmartctl -Destination $destinationFolderS32 -Force
+# Copy-Item -Path $sourceClient -Destination $destinationFolder1SSD -Force
 # Copy-Item -Path $sourcePowerShell -Destination $destinationFolder -Force
 
 # Создание задачи в Планировщике заданий
