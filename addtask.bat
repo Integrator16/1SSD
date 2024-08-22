@@ -1,2 +1,2 @@
-powershell -executionpolicy RemoteSigned -file ".\addtasks.ps1"
+powershell -executionpolicy Bypass -file ".\addtasks.ps1"
 pause

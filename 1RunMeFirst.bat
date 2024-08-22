@@ -59,5 +59,5 @@
  ::::::::::::::::::::::::::::
 mkdir "%PROGRAMFILES%\1SSD"
 addtask.bat
-::powershell -executionpolicy RemoteSigned -file ".\Addtasks.ps1"
+powershell -executionpolicy RemoteSigned -file ".\Addtasks.ps1"
 
