@@ -13,7 +13,7 @@ function Get-DiskData {
         $diskName = $disk.DeviceID
         $reliabilityData = Get-StorageReliabilityCounter -PhysicalDisk $disk
 
-        $temperatureCelsius = "-"
+        $temperatureCelsius = $null
         $parameters = @{}
 
         if ($reliabilityData) {
@@ -31,9 +31,9 @@ function Get-DiskData {
 
                 if ($output -match $pattern) {
                     $matchedValue = $matches[1]
-                    $parameters[$param] = $matchedValue
+                    $parameters[$param] = [int]$matchedValue  # Преобразование в целое число
                 } else {
-                    $parameters[$param] = "-"
+                    $parameters[$param] = $null  # Если параметр не найден, отправляем как null
                 }
             }
         }
