@@ -1,10 +1,11 @@
 $logFilePath = ".\client.log"
 $apiUrl = "http://i.1ssd.ru/temperatures"
+$company = "c0ced2afb9a693f7f89eeea3a147f832"  # Значение параметра company
 
 # Функция для получения температуры дисков и параметров SMART
 function Get-DiskData {
     $diskData = @()
-    $smartParameters = @('241', '243', '228', '005', '009', '170', '174', '184', '187', '194', '192', '199', '197')
+    $smartParameters = @('241', '243', '228', '005', '009', '170', '174', '184', '187', '194', '192', '199', '197', '230', '231')
 
     # Получение данных о дисках с помощью Get-PhysicalDisk и Get-StorageReliabilityCounter
     $disks = Get-PhysicalDisk | Sort-Object -Property Number
@@ -66,11 +67,13 @@ function Send-DataToServer {
     param (
         [string]$apiUrl,
         [string]$computerName,
-        [array]$diskData
+        [array]$diskData,
+        [string]$company
     )
 
     $payload = @{
         computer_name = $computerName
+        company = $company  # Используем параметр company
         temperatures = @()
     }
 
@@ -99,5 +102,5 @@ $computerName = $env:COMPUTERNAME
 
 $diskData = Get-DiskData
 $filteredDiskData = Filter-DiskData -diskData $diskData
-Send-DataToServer -apiUrl $apiUrl -computerName $computerName -diskData $filteredDiskData
+Send-DataToServer -apiUrl $apiUrl -computerName $computerName -diskData $filteredDiskData -company $company
 Start-Sleep -Seconds 5  # Отправка данных каждые 5 секунд
