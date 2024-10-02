@@ -36,13 +36,14 @@ function Get-DiskData {
             $drivePath = "/dev/sd$driveLetter"
             Write-Output $drivePath
             $index++ # Увеличиваем счетчик после каждой итерации
-            $output = & .\smartctl.exe -a $drivePath 
-            
-            # Извлечение дополнительных параметров
-            $deviceModel = ($output | Select-String -Pattern 'Device Model').Line
-            $modelFamily = ($output | Select-String -Pattern 'Model Family').Line
-            $userCapacity = ($output | Select-String -Pattern 'User Capacity').Line
-            $firmwareVersion = ($output | Select-String -Pattern 'Firmware Version').Line
+            $output = & .\smartctl.exe -a $drivePath
+			
+			# Извлечение дополнительных параметров с использованием регулярного выражения
+			$deviceModel = ($output | Select-String -Pattern 'Device Model').Line -replace '^.*?:\s*', ''
+			$modelFamily = ($output | Select-String -Pattern 'Model Family').Line -replace '^.*?:\s*', ''
+			$userCapacity = ($output | Select-String -Pattern 'User Capacity').Line -replace '^.*?:\s*', ''
+			$firmwareVersion = ($output | Select-String -Pattern 'Firmware Version').Line -replace '^.*?:\s*', ''
+
 
 			foreach ($line in $output) {
                 # Проверяем, соответствует ли строка формату ID# ATTRIBUTE_NAME
